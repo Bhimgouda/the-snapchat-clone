@@ -37,8 +37,8 @@ function Preview() {
       timestamp: new Date().toUTCString(),
       // profilePic
     }
-
-    await addPost(post)
+    addPost(post) // Await should be there
+    navigate("/chats", {replace: true})
   }
 
   return (
