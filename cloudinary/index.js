@@ -6,13 +6,10 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_SECRET,
 });
 
-exports.uploadToCloudinary = async(req,res,next)=>{
-    const {imageUrl} = req.body;
-    const {url} = await cloudinary.v2.uploader.upload(imageUrl,{
+exports.uploadToCloudinary = async(imageUrl)=>{
+  return cloudinary.v2.uploader.upload(imageUrl,{
         folder: "the-snapchat-clone",
         allowedFormats: ["jpeg", "png", "jpg"],
     })
-    req.body.imageUrl = url;
-    next()
 }
 

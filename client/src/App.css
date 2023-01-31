@@ -91,6 +91,22 @@
   width: 250px;
 }
 
+.chats__take-pic-icon{
+  position: absolute;
+  background-color: white;
+  border-radius: 200px;
+  color: grey;
+  font-size: 40px !important;
+  cursor: pointer;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.chats__take-pic-icon:hover{
+  opacity: 0.8;
+}
+
 .chats__header{
   display: flex;
   justify-content: space-between;
@@ -147,5 +163,83 @@
   -ms-overflow-style: none;
   scrollbar-width: none; 
 }
+
+
+/* Chat */
+
+.chat{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid whitesmoke;
+  cursor: pointer;
+}
+
+.chat:hover{
+  opacity: 0.8;
+}
+
+.chat__avatar{
+  height: 35px !important;
+  width: 35px !important;
+}
+
+.chat__read-icon{
+  color: #ed3b55;
+}
+
+.chat__info{
+  padding-left: 10px;
+  flex: 1;
+}
+
+.chat__info > h4{
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.chat__info > p{
+  font-size: 9px;
+}
+
+/* Chat view */
+
+.chat-view{
+  position: relative;
+}
+
+.chat-view img{
+  cursor: pointer;
+}
+
+.chat-view__timer{
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 10px;
+}
+
+
+/* Login */
+
+.login{
+  background-color: var(--color-snapchat-yellow);
+  display: grid;
+  place-items: center;
+  height: 100vh;
+}
+
+.login__container{
+  display: flex;
+  flex-direction: column;
+}
+
+.login__container img{
+  height: 300px;
+  object-fit: contain;
+}
+
+
 
 

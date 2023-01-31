@@ -14,7 +14,7 @@ import TimerIcon from '@mui/icons-material/Timer';
 import SendIcon from '@mui/icons-material/Send';
 import { addPost } from './services/post'
 
-function Preview() {
+function Preview({socket}) {
   const cameraImage = useSelector(selectCameraImage);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -37,7 +37,7 @@ function Preview() {
       timestamp: new Date().toUTCString(),
       // profilePic
     }
-    addPost(post) // Await should be there
+    socket.emit('add-post', post)
     navigate("/chats", {replace: true})
   }
 
