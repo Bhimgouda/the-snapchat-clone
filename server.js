@@ -9,6 +9,10 @@ const app = express();
 const { uploadToCloudinary } = require("./cloudinary");
 const Post = require("./models/post");
 const catchAsync = require("./utils/catchAsync");
+const googleAuthRouter = require("./routes/googleAuth")
+const userRouter = require("./routes/user")
+const cookieParser = require("cookie-parser");
+
 
 const PORT = process.env.PORT
 const dbUrl = process.env.MONGODB_URI
@@ -18,7 +22,13 @@ const dbUrl = process.env.MONGODB_URI
 // JSON body parser
 app.use(express.json())
 
+// To parse cookies
+app.use(cookieParser())
+
 // -------------------------- Routes --------------------- //
+
+app.use("/api/auth/google/callback", googleAuthRouter)
+app.use("/api", userRouter)
 
 app.post("/api/post", uploadToCloudinary, catchAsync(async(req,res)=>{
     const post = await Post.create(req.body);
@@ -29,8 +39,8 @@ app.post("/api/post", uploadToCloudinary, catchAsync(async(req,res)=>{
 
 
 app.use((err,req,res,next)=>{
-    const {message="Something went Wrong", status=500} = e;
-    console.log(message)
+    const {message="Something went Wrong", status=500} = err;
+    console.log(err.stack)
     res.status(status).send(message);
 })
 
