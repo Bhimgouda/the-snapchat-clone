@@ -27,9 +27,9 @@ router.get("/", catchAsync(async(req,res)=>{
         res.cookie("token", token)
     }
     else{ // For new User(sign up)
-        const user = await User.Create({
+        const user = await User.create({
             email: userData.email,
-            name: userData.email,
+            name: userData.name,
             profilePic: userData.picture,
         })
 
@@ -47,7 +47,7 @@ router.get("/", catchAsync(async(req,res)=>{
     if(process.NODE_ENV !== "production"){
         return res.redirect("http://localhost:3000")
       }
-    return res.redirect("/");
+    return res.redirect("/chats");
 }))
 
 function getAccessToken(code){

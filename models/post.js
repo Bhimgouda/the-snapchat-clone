@@ -6,7 +6,10 @@ const postSchema = new Schema({
     username: String,
     timestamp: String,
     profilePic: String,
-    read: Boolean,
+    read: {
+        type: Object,
+        default: {}
+    }
 })
 
 const Post = mongoose.model("Post", postSchema);

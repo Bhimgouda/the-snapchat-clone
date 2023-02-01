@@ -1,6 +1,5 @@
 *, *::before, *::after{
   margin: 0;
-  box-sizing: border-box;
 }
 
 :root{
@@ -16,6 +15,25 @@
   background-color: var(--color-snapchat-yellow);
   height: 100vh;
   font-family: sans-serif;
+}
+
+.app__logo{
+  object-fit: contain;
+  height: 100px;
+}
+
+.app__body{
+  background: url("https://www.pngkey.com/png/full/859-8598072_picture-freeuse-library-silhouetter-mobile-at-getdrawings-cell.png") no-repeat center;
+  background-size: contain;
+  height: 402px;
+  width: 249px;
+  padding: 74px;
+}
+
+.app__body-background{
+  background-color: black;
+  width: 251px;
+  height: 400px;
 }
 
 .webcam-capture{
@@ -123,6 +141,16 @@
   padding-left: 8px;
 }
 
+.chats__search-icon{
+  color: white;
+  font-size: 13px !important;
+}
+
+.chats__chat-icon{
+  color: white;
+  font-size: 18px !important;
+}
+
 .chats__search input{
   outline: none;
   background-color: transparent;
@@ -218,6 +246,10 @@
   top: 0;
   right: 0;
   margin: 10px;
+}
+
+.chat-view__timer div div{
+  color: var(--color-snapchat-yellow);
 }
 
 

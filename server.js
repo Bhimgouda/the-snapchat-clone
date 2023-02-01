@@ -33,8 +33,7 @@ app.use(cookieParser())
 // ----------------------- REALTIME SOCKET.IO DUPLEX CONNECTION ---------------------- //
 
 io.on("connection", async(socket)=>{
-    const posts = await getAllPosts()
-    socket.emit("send-posts", posts)
+
     socket.on('get-posts', async()=>{
         const posts = await getAllPosts()
         socket.emit('send-posts', posts)
@@ -43,18 +42,13 @@ io.on("connection", async(socket)=>{
     socket.on('add-post', async(post)=>{
         const {url} = await uploadToCloudinary(post.imageUrl)
         post.imageUrl = url;
-        await Post.create(post);
-        const posts = await getAllPosts()
-        io.emit('update-posts', posts)
+        const newPost = await Post.create(post);
+        io.emit('update-posts', newPost)
     })
     
-    socket.on("read-post", async(postId)=>{
-        await markPostAsRead(postId)
-        const posts = await getAllPosts();
-        socket.emit('update-posts', posts)
+    socket.on("read-post", async(postId, userId)=>{
+        await markPostAsRead(postId, userId)
     })
-
-
 })
 
 // -------------------------- Routes --------------------- //
@@ -62,15 +56,9 @@ io.on("connection", async(socket)=>{
 app.use("/api/auth/google/callback", googleAuthRouter)
 app.use("/api", userRouter)
 
-// app.post("/api/post", uploadToCloudinary, catchAsync(async(req,res)=>{
-//     const post = await Post.create(req.body);
-//     res.send(200);
-//     console.log(post)
-// }))
-
 app.use((err,req,res,next)=>{
     const {message="Something went Wrong", status=500} = err;
-    console.log(message)
+    console.log(err.stack)
     res.status(status).send(message);
 })
 

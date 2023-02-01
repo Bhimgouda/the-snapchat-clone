@@ -1,5 +1,1 @@
-// the countdown timer exit() // gives an error
-// cannot go back to "/" from "/chats" because of some useNavigate replace
-// I have so many use effect in chat apps just to update posts
 // round countdown timer number not visible
-// userProfile pic from google not coming 403

@@ -1,9 +1,10 @@
 import React from 'react'
 import { Button } from '@mui/material'
 import queryString from "query-string";
+import { redirect, useNavigate } from 'react-router-dom';
 
 function Login() {
-
+  const navigate = useNavigate()
 
   // Here we send the user to google auth page where he completes the login then
   // google sends the user to our given callbackUrl (server-side) // then we have to
@@ -25,13 +26,14 @@ function Login() {
 
   const googleLoginUrl = `https://accounts.google.com/o/oauth2/v2/auth?${query}`
 
-
+// window.location is just used for styling purpose
+// as the link was affecting styles
 
   return (
     <div className='login'>
         <div className="login__container">
             <img src="https://scx2.b-cdn.net/gfx/news/2017/1-snapchat.jpg" alt="" />
-            <a href={googleLoginUrl}><Button variant='outlined'>Sign in</Button></a>
+              <Button onClick={(()=>window.location.assign(googleLoginUrl))}>Sign in</Button>   
         </div>
     </div>
   )

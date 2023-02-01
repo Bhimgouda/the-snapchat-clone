@@ -6,9 +6,12 @@ const User = require("../models/user")
 
 router.get('/get-user', catchAsync(async(req,res)=>{
     const {token} = req.cookies;
-    const{email} = jwt.decode(token, process.env.TOKEN_KEY)
-    const user = await User.findOne({email})
-    return res.send(user);
+    if(token){
+        const{email} = jwt.decode(token, process.env.TOKEN_KEY)
+        const user = await User.findOne({email})
+        return res.send(user);
+    }
+    else res.end();
 }))
 
 router.get("/logout", catchAsync(async(req,res)=>{

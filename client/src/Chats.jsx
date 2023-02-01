@@ -10,6 +10,7 @@ import { logout, selectUser } from './slices/appSlice';
 import http from './services/httpService';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import { useNavigate } from 'react-router-dom';
+import { resetCameraImage } from './slices/cameraSlice';
 
 
 
@@ -19,65 +20,55 @@ function Chats({socket}) {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    
+    // Here we get only all posts and is not dependent on posts    
     useEffect(()=>{
         if(!socket) return
 
         socket.emit('get-posts')
-
+        
         socket.on('send-posts', (allPosts)=>{
             setPosts([...allPosts])
         })
-
+        
         return ()=>{
             socket.off('send-posts')
         }
-    },[])
+    },[socket]);
 
+    // Here we get only 1 updated post from socket event and have to update the posts state, hence dependent on posts and socket    
     useEffect(()=>{
         if(!socket) return
 
-        socket.on('send-posts', (allPosts)=>{
-            setPosts([...allPosts])
+        socket.on("update-posts", (newPost)=>{
+            const updatedPosts = [newPost, ...posts];
+            setPosts(updatedPosts)
         })
 
         return ()=>{
-            socket.off('send-posts')
-        }
-    },[socket,posts]);
-
-    useEffect(()=>{
-        if(!socket) return
-
-        socket.on("update-posts", (updatedPosts)=>{
-            setPosts([...updatedPosts])
-        })
-
-        return ()=>{
-            socket.off('send-posts')
+            socket.off('update-posts')
         }        
-    }, [socket,posts])
-
+    }, [socket, posts])
 
     const signOut = async()=>{
         dispatch(logout())
         await http.get('/api/logout')
+        navigate("/login"); // replace removed
     }
 
     const takeSnap = ()=>{
+        dispatch(resetCameraImage)
         navigate("/")
     }
 
     return (
     <div className='chats'>
-
         <div className="chats__header">
             <Avatar src={user && user.profilePic} onClick={signOut} className="chats__avatar" />
             <div className='chats__search'>
-                <SearchIcon />
+                <SearchIcon className='chats__search-icon' />
                 <input placeholder='Friends' type="text" />
             </div>
-            <ChatBubbleIcon className='chats__chatIcon' /> 
+            <ChatBubbleIcon className='chats__chat-icon' /> 
         </div>
 
         <div className="chats__posts">
