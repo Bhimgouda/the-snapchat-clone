@@ -52,7 +52,7 @@ function Chats({socket}) {
     const signOut = async()=>{
         dispatch(logout())
         await http.get('/api/logout')
-        navigate("/login"); // replace removed
+        navigate("/login", {replace: true});
     }
 
     const takeSnap = ()=>{

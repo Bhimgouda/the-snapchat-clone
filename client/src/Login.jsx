@@ -14,7 +14,7 @@ function Login() {
 
   const query = queryString.stringify({
       client_id: "131835320590-hfo9670vchkcu1po8olfa16rk8grp294.apps.googleusercontent.com",
-      redirect_uri: 'http://localhost:5000/api/auth/google/callback',
+      redirect_uri: 'https://snapchat-clone.bhim.me/api/auth/google/callback', // changes on production before commit to http://localhost:5000/api/auth/google/callback
       scope: [
         'https://www.googleapis.com/auth/userinfo.email',
         'https://www.googleapis.com/auth/userinfo.profile',
@@ -33,7 +33,7 @@ function Login() {
     <div className='login'>
         <div className="login__container">
             <img src="https://scx2.b-cdn.net/gfx/news/2017/1-snapchat.jpg" alt="" />
-              <Button onClick={(()=>window.location.assign(googleLoginUrl))}>Sign in</Button>   
+              <Button style={{"color": "black"}} variant='outlined' onClick={(()=>window.location.assign(googleLoginUrl))}>Sign in</Button>   
         </div>
     </div>
   )

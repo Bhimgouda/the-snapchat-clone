@@ -25,7 +25,7 @@ function Chat({post, socket}) {
     <div onClick={open} className='chat'>
         <Avatar src={profilePic} />
         <div className="chat__info">
-            <h4>{username.split(" ")[0]}</h4>
+            <h4>{username && username.split(" ")[0]}</h4>
             <p>{!read[user && user._id] && "Tap to view - " || " "}<ReacTimeago date={timestamp} /></p>
         </div>
 

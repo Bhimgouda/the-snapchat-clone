@@ -54,7 +54,7 @@ function getAccessToken(code){
     return axios.post("https://oauth2.googleapis.com/token",{
         client_id: process.env.GOOGLE_CLIENT_ID,
           client_secret: process.env.GOOGLE_SECRET_API_KEY,
-          redirect_uri: 'http://localhost:5000/api/auth/google/callback',
+          redirect_uri: process.env.GOOGLE_REDIRECT_URI,
           grant_type: 'authorization_code',
           code,
     })

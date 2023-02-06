@@ -1,8 +1,4 @@
-if(process.env.NODE_ENV !== "production"){
-    require("dotenv").config()
-}
-
-
+require("dotenv").config()
 const express = require("express");
 const app = express();
 const server = require("http").createServer(app)
@@ -10,11 +6,9 @@ const io = require('socket.io')(server)
 const { uploadToCloudinary } = require("./cloudinary");
 const mongoose = require("mongoose");
 const Post = require("./models/post");
-const catchAsync = require("./utils/catchAsync");
 const googleAuthRouter = require("./routes/googleAuth")
 const userRouter = require("./routes/user")
 const cookieParser = require("cookie-parser");
-const path = require("path");
 const { getAllPosts, markPostAsRead } = require("./controllers/post");
 
 
@@ -29,6 +23,7 @@ app.use(express.json())
 
 // To parse cookies
 app.use(cookieParser())
+
 
 // ----------------------- REALTIME SOCKET.IO DUPLEX CONNECTION ---------------------- //
 
@@ -55,6 +50,9 @@ io.on("connection", async(socket)=>{
 
 app.use("/api/auth/google/callback", googleAuthRouter)
 app.use("/api", userRouter)
+
+
+// Error Handling Middleware
 
 app.use((err,req,res,next)=>{
     const {message="Something went Wrong", status=500} = err;

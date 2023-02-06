@@ -11,13 +11,12 @@ import { login, selectUser } from './slices/appSlice';
 import Login from './Login';
 import axios from 'axios';
 import PrivateRoute from './PrivateRoute';
+import NotFound from './NotFound';
 
 function App() {
   const [socket, setSocket] = useState()
   const [loading, setLoading] = useState(true)
   const dispatch = useDispatch()
-
-  console.log("hey")
 
   useEffect(()=>{
     const socketServer = io('')
@@ -50,11 +49,12 @@ function App() {
   return ( 
     <div className='app'>
         <Routes>
-          <Route path="/login" element={<Login />} />
           <Route path="/chats/view" element={<PrivateRoute element={<ChatView />} />} />
           <Route path='/chats' element={<PrivateRoute element={<Chats socket={socket} />} />} />
           <Route path="/preview" element={<PrivateRoute element={<Preview socket={socket} />} />} />          
+          <Route path="/login" element={<Login />} />
           <Route path='/' element={<PrivateRoute element={<WebcamCapture />} />} />
+          <Route path='*' element={<NotFound />} />
         </Routes>
     </div>
   );

@@ -15,8 +15,8 @@ router.get('/get-user', catchAsync(async(req,res)=>{
 }))
 
 router.get("/logout", catchAsync(async(req,res)=>{
-    req.cookies.token = null;
-    return res.sendStatus(200);
+    res.clearCookie("token");
+    return res.end()
 }))
 
 module.exports = router
