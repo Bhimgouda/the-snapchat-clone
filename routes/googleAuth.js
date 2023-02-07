@@ -44,7 +44,7 @@ router.get("/", catchAsync(async(req,res)=>{
         res.cookie("token", token)
     }
 
-    if(process.NODE_ENV !== "production"){
+    if(process.env.NODE_ENV !== "production"){
         return res.redirect("http://localhost:3000")
       }
     return res.redirect("/chats");

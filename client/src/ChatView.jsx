@@ -20,7 +20,7 @@ function ChatView() {
 
   return (
     <div className='chat-view'>
-        <img onClick={exit} src={selectedImage.replace("/upload/", `/upload/w_${document.body.clientWidth > 425 ? 250 : document.body.clientWidth}/`)} alt="" />
+        <img onClick={exit} src={selectedImage} alt="" />
         <div className='chat-view__timer'>
         <CountdownCircleTimer
         isPlaying
